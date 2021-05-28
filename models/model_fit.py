@@ -1,5 +1,7 @@
 import ee
-ee.Initialize()
+service_account = 'renosterveld-ee@ee-vegetation-gee4geo.iam.gserviceaccount.com'
+credentials = ee.ServiceAccountCredentials(service_account, '../ee-vegetation-gee4geo-6309a79ef209.json')
+ee.Initialize(credentials)
 import tensorflow as tf
 import json
 from eoflow.models import TransformerEncoder, TempCNNModel
