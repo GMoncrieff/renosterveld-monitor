@@ -1,6 +1,6 @@
 import ee
 service_account = 'renosterveld-ee@ee-vegetation-gee4geo.iam.gserviceaccount.com'
-credentials = ee.ServiceAccountCredentials(service_account, '../ee-vegetation-gee4geo-6309a79ef209.json')
+credentials = ee.ServiceAccountCredentials(service_account, 'ee-vegetation-gee4geo-6309a79ef209.json')
 ee.Initialize(credentials)
 import tensorflow as tf
 import json
@@ -14,10 +14,10 @@ def model_cnn(params):
 
 
     #load pars for scaling data
-    with open('max.json') as f:
+    with open('data/max.json') as f:
       Max = json.load(f)
 
-    with open('min.json') as f:
+    with open('data/min.json') as f:
       Min = json.load(f)
 
     #load data
@@ -83,6 +83,7 @@ def model_cnn(params):
         verbose=0
     )
     #get results
+    model.load_weights(checkpoints_path)
     result = model.evaluate(valDataset,verbose=0,return_dict=True)
     
     return result
@@ -91,10 +92,10 @@ def model_trans(params):
 
 
     #load pars for scaling data
-    with open('max.json') as f:
+    with open('data/max.json') as f:
       Max = json.load(f)
 
-    with open('min.json') as f:
+    with open('data/min.json') as f:
       Min = json.load(f)
 
     #load data
@@ -144,7 +145,7 @@ def model_trans(params):
         "num_layers": params[2],
         "d_model": params[3],
         "layer_norm": params[4],
-        "num_dff":params[5]
+        "num_dff":256
     }
 
     # rubn model
@@ -161,6 +162,7 @@ def model_trans(params):
         summary_steps='epoch',
         verbose=0
     )
+    model.load_weights(checkpoints_path)
     #get results
     result = model.evaluate(valDataset,verbose=0,return_dict=True)
     

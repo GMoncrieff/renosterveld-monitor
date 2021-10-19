@@ -30,8 +30,10 @@ testFilePath = 'gs://' + outputBucket + '/' + testFilePrefix + fileNameSuffix
 validFilePath = 'gs://' + outputBucket + '/' + validFilePrefix + fileNameSuffix
 
 ##-- files and paths for predictions
-PREDICT_MASK = 'users/glennwithtwons/remnos'
-#PREDICT_MASK = ee.Geometry.Polygon([[[19.639005114855262, -34.289751804879266],[19.639005114855262, -34.31389429181759], [19.66702883464286, -34.31389429181759],[19.66702883464286, -34.289751804879266]]])
+#PREDICT_MASK = 'users/glennwithtwons/remnos'
+PREDICT_MASK = ee.Geometry.Polygon([[[19.631045058463908, -34.29508845981738],[19.631045058463908, -34.369651314658306],[19.728548720573283, -34.369651314658306],[19.728548720573283, -34.29508845981738]]])
+
+
 outputBucket_predict = 'renosterveld-monitor'
 PREDICT_IMG_BASE = 'Image_reno_predict_'
 PREDICT_ASSET_BASE = 'projects/ee-exports/assets/Image_reno_predict_'
@@ -57,7 +59,8 @@ str_name4 = 'renosterveld s2 time series ' + '_' + str(datetime.date.today())
 #study area
 aoi = ee.FeatureCollection(TRAIN_INPUT).geometry().convexHull()
 #predict area
-poi = ee.FeatureCollection(PREDICT_MASK).geometry().convexHull()
+#poi = ee.FeatureCollection(PREDICT_MASK).geometry().convexHull()
+poi = PREDICT_MASK
 
 ##split parameters##
 ####################
@@ -138,7 +141,12 @@ t_dates = ee.List.sequence(0,t_n_day,dstep)
 t_dates = t_dates.map(make_testdatelist)
 
 ##-- prediction dates
-PDATESTR = datetime.datetime.today().strftime('%Y-%m-%d')
+#PDATESTR = datetime.datetime.today().strftime('%Y-%m-%d')
+#2019-01-12 #2019-01-22 2019-02-02 2019-02-12 2019-02-22 2019-03-04 2019-03-14 2019-03-24
+PDATESTR = '2019-03-24'
+
+#2019-01-12 #2019-01-22 2019-02-02 2019-02-12 2019-02-22
+#PDATESTR = '2019-03-13' 
 PDATEEND = ee.Date(PDATESTR).advance(-1,'day')
 PREDICT_IMG = PREDICT_IMG_BASE + "_" + PDATESTR
 PREDICT_ASS = PREDICT_ASSET_BASE  + "_" + PDATESTR
@@ -183,5 +191,7 @@ input_shape = (None,WINDOW,len(allbands))
 tsLength= 149
 testLength = 49
 lr = 0.0001
-model_directory = 'data/test_model'
-checkpoints_path = os.path.join(model_directory, 'checkpoints', 'model.ckpt')
+model_tran_directory = 'data/cnn_model_cpu'
+model_cnn_directory = 'data/tran_model_cpu'
+checkpoints_cnn_path = os.path.join(model_cnn_directory, 'checkpoints', 'model.ckpt')
+checkpoints_tran_path = os.path.join(model_tran_directory, 'checkpoints', 'model.ckpt')

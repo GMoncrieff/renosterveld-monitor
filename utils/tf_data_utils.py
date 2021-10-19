@@ -27,9 +27,14 @@ def standardize(x,Min,Max):
     x[k] = (x[k]-Min[k])/(Max[k]-Min[k])
   return x
 
+def roller(x):
+  z = tf.roll(x['label'],2,0)
+  x['lablag'] = tf.math.add(z,x['label'])
+  return x
+
 #reshape data from dict into tuple of features and label
-def reshape_ts(x,names):
-  lab_tup = sorted(list(names))
+def reshape_ts(x,names,extra=[]):
+  lab_tup = sorted(list(names))+extra
   val_tup = list(tf.unstack(x,axis=0))
   res = dict(zip(lab_tup,val_tup))
   return res
@@ -40,21 +45,7 @@ def labeller(x,lab):
   return x
 
 #remove unwanted labels
-def filter_fn(x,allowed_labels=LABELS_FILTER):
-    allowed_labels=tf.constant(allowed_labels)
-    lab = x[label]
-    isallowed = tf.equal(allowed_labels, tf.cast(lab, tf.float32))
-    reduced = tf.reduce_sum(tf.cast(isallowed, tf.float32))
-    return tf.greater(reduced, tf.constant(0.))
-
-#needs these bc I cant figure out how to pass variable to filter func
-def filter_fn0(x,allowed_labels=[0.0]):
-    allowed_labels=tf.constant(allowed_labels)
-    lab = x[label]
-    isallowed = tf.equal(allowed_labels, tf.cast(lab, tf.float32))
-    reduced = tf.reduce_sum(tf.cast(isallowed, tf.float32))
-    return tf.greater(reduced, tf.constant(0.))
-def filter_fn1(x,allowed_labels=[1.0]):
+def filter_fn(x,allowed_labels=LABELS_FILTER,label=label):
     allowed_labels=tf.constant(allowed_labels)
     lab = x[label]
     isallowed = tf.equal(allowed_labels, tf.cast(lab, tf.float32))

@@ -16,13 +16,11 @@ t1 = [0.5,0.8]
 #nheads
 t2 = [4,8]
 #nlayers
-t3 = [2,4,8]
+t3 = [2,4]
 #model depth
 t4 = [128,256]
 #layer norm
 t5 = [True,False]
-#ff neurons
-t6 = [256,512]
 
 #create df/grid of hparams for rf
 #nestimators 
@@ -34,7 +32,7 @@ r3 = [2,4,6]
 
 #create grid
 pcnn = list(itertools.product(c1,c2,c3,c4))
-ptrans = list(itertools.product(t1,t2,t3,t4,t5,t6))
+ptrans = list(itertools.product(t1,t2,t3,t4,t5))
 prf = list(itertools.product(r1,r2,r3))
 
 #rf data
