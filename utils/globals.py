@@ -153,8 +153,7 @@ PREDICT_ASS = PREDICT_ASSET_BASE  + "_" + PDATESTR
 PDATESTART = PDATEEND.advance(-1*DWINDOW,'day')
 PDate_Start = ee.Date(PDATESTART)
 PDate_End = ee.Date(PDATEEND)
-n_day_pred = DWINDOW-dstep
-pdates = ee.List.sequence(0,n_day_pred,dstep)
+pdates = ee.List.sequence(dstep,DWINDOW,dstep)
 pdates = pdates.map(make_pdatelist)
 
 ## Features ##
