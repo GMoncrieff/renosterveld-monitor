@@ -5,7 +5,7 @@ _Code for the paper 'Continuous Land Cover Change Detection in a Critically Enda
 
 Google Earth Engine is required to run notebooks. Code was run on a GCP Vertex AI Workbench VM.
 
-[01_data_export.ipynb](https://github.com/GMoncrieff/renosterveld-monitor/blob/main/01_data_export.ipynb) exports train, test andn valid data to google cloud storage  
+[01_data_export.ipynb](https://github.com/GMoncrieff/renosterveld-monitor/blob/main/01_data_export.ipynb) exports train, test and valid data to google cloud storage  
 
 [02_model_fit.ipynb](https://github.com/GMoncrieff/renosterveld-monitor/blob/main/02_model_fit.ipynb) fits models using tf2 with preselected parameters values  
 
@@ -15,7 +15,8 @@ Google Earth Engine is required to run notebooks. Code was run on a GCP Vertex A
 
 Global variables defining region, dates, parameters, filenames, credentials etc are defined in [utils/globals.py](https://github.com/GMoncrieff/renosterveld-monitor/blob/main/utils/globals.py)
 
-Code for the operational prediction pipeline implemented using google cloud functions, cloud run and cloud dataflow can be found at [https://github.com/mgietzmann/global_renosterveld_watch](https://github.com/mgietzmann/global_renosterveld_watch). This prediction pipeline makes predicitons of land cover change and uploads them to Earth Engine every 20 days. Results can be viewed at [https://glennwithtwons.users.earthengine.app/view/global-renosterveld-watch](https://glennwithtwons.users.earthengine.app/view/global-renosterveld-watch)
+Code for the operational prediction pipeline implemented using google cloud functions, cloud run and cloud dataflow can be found at [https://github.com/mgietzmann/global_renosterveld_watch](https://github.com/mgietzmann/global_renosterveld_watch).  
+This prediction pipeline makes predicitons of land cover change and uploads them to Earth Engine every 20 days. Results can be viewed at [https://glennwithtwons.users.earthengine.app/view/global-renosterveld-watch](https://glennwithtwons.users.earthengine.app/view/global-renosterveld-watch)
 
 
 
