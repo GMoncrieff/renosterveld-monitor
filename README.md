@@ -1,5 +1,6 @@
 # Shrubland change detection using neural networks
-Code for the paper 'Continuous Land Cover Change Detection in a Critically Endangered Shrubland Ecosystem Using Neural Networks' by Glenn Moncrieff
+_Code for the paper 'Continuous Land Cover Change Detection in a Critically Endangered Shrubland Ecosystem Using Neural Networks' by Glenn Moncrieff_  
+
 [https://www.mdpi.com/2072-4292/14/12/2766/htm](https://www.mdpi.com/2072-4292/14/12/2766/htm)
 
 Google Earth Engine is required to run notebooks. Code was run on a GCP Vertex AI Workbench VM.
